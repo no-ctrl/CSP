@@ -1,0 +1,675 @@
+// Color and Design Variables
+$primary-color: #4682b4; // Steel Blue for primary elements
+$secondary-color: #ff7f50; // Coral for secondary elements
+$accent-color: #3cb371; // Medium Sea Green for accents
+$background-dark: #f0f0f0; // Light Grey for dark backgrounds (sections)
+$background-light: #ffffff; // White for light backgrounds
+$text-color: #444444; // Softer Dark Gray for text
+$white: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.15); // Slightly darker shadow for more contrast
+$border-radius: 8px; // Reduced border radius for a sleeker look
+
+// Transition and Animation Variables
+$transition-speed: 0.3s ease-in-out;
+$fade-in-duration: 0.5s;
+$max-width: 1200px;
+
+// Font Variables
+$font-family-base: 'Montserrat', sans-serif;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+$font-size-large: 2.2rem;
+$font-size-medium: 1.4rem;
+$font-size-small: 1rem;
+$line-height-normal: 1.6;
+$letter-spacing-normal: 0.5px;
+$letter-spacing-wide: 1px;
+$text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+// Mixin for smooth transitions
+@mixin smooth-transition($properties...) {
+  transition: $properties $transition-speed;
+}
+
+// Responsive breakpoints
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-xlarge: 1200px;
+
+// Responsive mixins
+@mixin responsive($breakpoint) {
+  @if $breakpoint == small {
+    @media (max-width: $breakpoint-small) { @content; }
+  } @else if $breakpoint == medium {
+    @media (max-width: $breakpoint-medium) { @content; }
+  } @else if $breakpoint == large {
+    @media (max-width: $breakpoint-large) { @content; }
+  } @else if $breakpoint == xlarge {
+    @media (max-width: $breakpoint-xlarge) { @content; }
+  }
+}
+
+// Global Styles
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: $font-family-base;
+  background-color: $background-light;
+  color: $text-color;
+  line-height: $line-height-normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+
+  @include responsive(small) {
+    line-height: 1.5; // Adjust line height for better readability on small screens
+  }
+}
+
+// Home Section
+.home-section {
+  color: $text-color;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  background: url('/assets/background.jpg') no-repeat fixed center;
+  background-size: cover;
+
+  @include responsive(medium) {
+    padding: 3rem 1rem;
+  }
+
+  @include responsive(small) {
+    padding: 2rem 1rem; // Reduce padding for small devices
+  }
+
+  .hero-container {
+    max-width: $max-width;
+    padding: 4rem;
+    background: rgba(255, 255, 255, 0.9); // Light overlay for better readability
+    border-radius: $border-radius;
+    box-shadow: 0 12px 30px $shadow-color;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(5px); // Subtle blur for aesthetic
+    animation: fadeIn $fade-in-duration;
+
+    @include responsive(medium) {
+      padding: 2rem;
+    }
+
+    @include responsive(small) {
+      padding: 1.5rem; // Reduce padding for small devices
+    }
+
+    .hero-content {
+      h1.hero-title {
+        font-size: 3rem; // Adjusted for modern look
+        color: $primary-color;
+        font-weight: $font-weight-bold;
+        margin-bottom: 1.5rem;
+        letter-spacing: $letter-spacing-wide;
+        text-shadow: $text-shadow;
+        animation: slideIn 1s ease-out;
+
+        @include responsive(medium) {
+          font-size: 2.5rem;
+        }
+
+        @include responsive(small) {
+          font-size: 2rem; // Smaller font size for mobile
+        }
+      }
+
+      h2.hero-subtitle {
+        font-size: 1.8rem; // Adjusted for modern look
+        color: $secondary-color;
+        margin-bottom: 2rem;
+        letter-spacing: $letter-spacing-normal;
+        text-shadow: $text-shadow;
+        animation: slideIn 1s ease-out 0.3s;
+
+        @include responsive(medium) {
+          font-size: 1.6rem;
+        }
+
+        @include responsive(small) {
+          font-size: 1.4rem; // Smaller font size for mobile
+        }
+      }
+
+      p.hero-description {
+        font-size: $font-size-medium;
+        max-width: 720px;
+        margin: 0 auto 2rem;
+        color: darken($text-color, 10%);
+        line-height: 1.6;
+        animation: slideIn 1s ease-out 0.6s;
+
+        @include responsive(small) {
+          font-size: $font-size-small; // Use small font size
+        }
+      }
+
+      a.primary-btn {
+        background-color: $primary-color;
+        color: $white;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-size: $font-size-medium;
+        font-weight: $font-weight-bold;
+        text-decoration: none;
+        display: inline-block;
+        @include smooth-transition(background-color, transform, box-shadow);
+
+        &:hover {
+          background-color: darken($primary-color, 8%);
+          transform: translateY(-4px);
+          box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        @include responsive(small) {
+          padding: 0.75rem 1.5rem; // Adjust button padding for mobile
+          font-size: $font-size-small; // Smaller font size for mobile
+        }
+      }
+
+      .payment-info {
+        margin-top: 2.5rem;
+        text-align: center;
+
+        .payment-title {
+          font-size: 1.8rem;
+          font-weight: $font-weight-bold;
+          color: $primary-color;
+          margin-bottom: 1.5rem;
+          letter-spacing: $letter-spacing-wide;
+
+          @include responsive(small) {
+            font-size: 1.5rem; // Smaller font size for mobile
+          }
+        }
+
+        .crypto-logos {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          flex-wrap: wrap;
+
+          @include responsive(small) {
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+
+            /* Optional: Hide scrollbar */
+            &::-webkit-scrollbar {
+              display: none;
+            }
+            scrollbar-width: none;
+
+            /* Add padding to accommodate scaling */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+          }
+
+          .crypto-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform $transition-speed;
+            overflow: visible; // Prevent clipping
+            position: relative; // For z-index
+
+            &:hover {
+              transform: scale(1.1);
+              z-index: 10; // Bring above other elements
+              transform-origin: center center; // Scale from center
+            }
+
+            .crypto-icon {
+              width: 50px;
+              height: 50px;
+              margin-bottom: 0.5rem;
+
+              @include responsive(small) {
+                width: 40px;
+                height: 40px;
+              }
+            }
+
+            .crypto-name {
+              font-size: $font-size-small;
+              color: $text-color;
+              font-weight: $font-weight-bold;
+
+              @include responsive(small) {
+                font-size: 0.8rem;
+              }
+            }
+          }
+        }
+      }
+
+      .progress-bar-container {
+        margin-top: 3.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .progress-bar {
+          width: 90%;
+          max-width: 700px;
+          height: 30px;
+          background: paleturquoise;
+          border-radius: 0;
+          position: relative;
+          overflow: hidden;
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+          @include responsive(small) {
+            height: 25px; // Adjust height for mobile
+          }
+
+          .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, $primary-color, darken($primary-color, 10%));
+            width: 0;
+            border-radius: inherit;
+            transition: width 1s ease-out;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            animation: fillBar 1s ease-out;
+          }
+
+          .progress-bar-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-weight: $font-weight-bold;
+            color: $white;
+            line-height: 30px;
+            font-size: $font-size-medium;
+
+            @include responsive(small) {
+              font-size: $font-size-small; // Smaller font size for mobile
+              line-height: 25px; // Adjust line height for mobile
+            }
+          }
+        }
+
+        .progress-info {
+          font-size: $font-size-small;
+          color: darken($text-color, 20%);
+          margin-top: 0.5rem;
+          text-align: center;
+
+          @include responsive(small) {
+            font-size: 0.8rem; // Smaller font size for mobile
+          }
+        }
+      }
+    }
+  }
+}
+
+// About Section
+.about-section {
+  background-color: $background-light;
+  padding: 4rem 2rem;
+  color: $text-color;
+
+  @include responsive(medium) {
+    padding: 3rem 1rem;
+  }
+
+  @include responsive(small) {
+    padding: 2rem 1rem; // Reduce padding for small devices
+  }
+
+  .container {
+    max-width: $max-width;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .info-faq-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+
+    @include responsive(medium) {
+      flex-direction: column;
+    }
+
+    @include responsive(small) {
+      gap: 1.5rem; // Reduce gap for small devices
+    }
+
+    .info-section, .faq-section {
+      flex: 1 1 100%;
+      background-color: $white;
+      padding: 2.5rem;
+      border-radius: $border-radius;
+      box-shadow: 0 12px 30px $shadow-color;
+      animation: fadeIn $fade-in-duration;
+
+      @include responsive(medium) {
+        padding: 2rem;
+      }
+
+      @include responsive(small) {
+        padding: 1.5rem; // Reduce padding for small devices
+      }
+
+      .info-title, .faq-title {
+        font-size: 1.8rem;
+        color: $primary-color;
+        margin-bottom: 1.5rem;
+        font-weight: $font-weight-bold;
+        padding-bottom: 0.5rem;
+        letter-spacing: $letter-spacing-wide;
+        text-shadow: $text-shadow;
+        animation: fadeIn $fade-in-duration;
+
+        @include responsive(small) {
+          font-size: 1.5rem; // Smaller font size for mobile
+        }
+      }
+
+      .info-text {
+        justify-content: left;
+        font-size: $font-size-medium;
+        color: darken($text-color, 20%);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+
+        @include responsive(small) {
+          font-size: $font-size-small; // Use small font size
+        }
+      }
+
+      .link {
+        color: $secondary-color;
+        text-decoration: underline;
+        @include smooth-transition(color);
+
+        &:hover {
+          color: lighten($secondary-color, 10%);
+        }
+      }
+    }
+
+    .faq-section {
+      .faq-item {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-bottom: 1rem;
+        position: relative;
+
+        &:last-of-type {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .faq-question {
+          font-size: $font-size-medium;
+          font-weight: $font-weight-bold;
+          color: darken($text-color, 10%);
+          cursor: pointer;
+          transition: color $transition-speed, background-color $transition-speed;
+          padding: 0.75rem;
+          border-radius: $border-radius;
+          background-color: lighten($background-light, 5%);
+          margin: 0;
+          letter-spacing: $letter-spacing-normal;
+
+          @include responsive(small) {
+            font-size: $font-size-small; // Smaller font size for mobile
+          }
+
+          &:hover {
+            color: $primary-color;
+            background-color: lighten($background-light, 10%);
+          }
+        }
+
+        .faq-answer {
+          font-size: $font-size-small;
+          color: dimgray;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height $transition-speed ease-out, opacity $transition-speed ease-out, padding $transition-speed ease-out;
+          padding: 0 1rem;
+          opacity: 0;
+          visibility: hidden;
+          margin-top: 0.5rem;
+
+          &.open {
+            max-height: 200px;
+            opacity: 1;
+            visibility: visible;
+            padding: 1rem;
+          }
+
+          @include responsive(small) {
+            font-size: 0.9rem; // Smaller font size for mobile
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fillBar {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+// Utilities
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#faq-section {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+// Additional Styles
+
+// Navbar
+.navbar {
+  background-color: $primary-color;
+  color: $white;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+    color: $white;
+    text-decoration: none;
+  }
+
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+
+    a {
+      color: $white;
+      margin-left: 1.5rem;
+      font-size: $font-size-medium;
+      text-decoration: none;
+      @include smooth-transition(color);
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+}
+
+// Footer
+.footer {
+  background-color: $primary-color;
+  color: $white;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 4rem;
+
+  a {
+    color: $accent-color;
+    text-decoration: none;
+    @include smooth-transition(color);
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Cards
+.card {
+  background-color: $white;
+  border: 1px solid red;
+  border-radius: $border-radius;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+
+  .card-title {
+    font-size: 1.5rem;
+    color: $primary-color;
+    margin-bottom: 1rem;
+  }
+
+  .card-text {
+    color: $text-color;
+    font-size: $font-size-medium;
+    margin-bottom: 1rem;
+  }
+
+  .card-link {
+    color: $secondary-color;
+    text-decoration: none;
+    @include smooth-transition(color);
+
+    &:hover {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+// Forms
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem;
+  border: 1px solid white;
+  border-radius: $border-radius;
+  background-color: #f9f9f9;
+  color: $text-color;
+  font-size: 1rem;
+
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+  }
+}
+
+label {
+  font-weight: $font-weight-bold;
+  color: $primary-color;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+// Alerts
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: $border-radius;
+  font-weight: $font-weight-bold;
+
+  &.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+
+  &.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+}
+
+// Tables
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+
+  th, td {
+    padding: 0.75rem 1rem;
+    border: 1px solid white;
+    text-align: left;
+  }
+
+  th {
+    background-color: $secondary-color;
+    color: $white;
+    font-weight: $font-weight-bold;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tr:hover {
+    background-color: #e0f7ff;
+  }
+}

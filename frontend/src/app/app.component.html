@@ -1,0 +1,49 @@
+<header>
+  <a routerLink="/" class="logo">
+    <div class="logo-img-container">
+      <img src="assets/logo.png" alt="logo" class="logo-img">
+    </div>
+    <h1 class="logo-text">Demo Shop</h1>
+  </a>
+
+  <!-- Hamburger Menu Button -->
+  <button class="menu-toggle" aria-label="Toggle navigation" (click)="toggleMenu()" [attr.aria-expanded]="isMenuActive">
+    <span class="hamburger-line line1"></span>
+    <span class="hamburger-line line2"></span>
+    <span class="hamburger-line line3"></span>
+  </button>
+
+  <nav [class.active]="isMenuActive">
+    <a (click)="navigateToSection('home')" routerLinkActive="active-link">{{ 'MENU_HOME' | translate }}</a>
+    <a (click)="navigateToSection('about-section')" routerLinkActive="active-link">{{ 'ABOUT_THE_PRODUCT' | translate }}</a>
+    <a (click)="navigateToSection('faq-section')" routerLinkActive="active-link">{{ 'FAQ' | translate }}</a>
+    <a routerLink="/offers" routerLinkActive="active-link">{{ 'EXPLORE_PRODUCTS' | translate }}</a>
+    <a class="logout" *ngIf="checkUserEmail()" (click)="logOut()" routerLink="/" routerLinkActive="logout">{{ 'LOG_OUT' | translate }}</a>
+  </nav>
+
+  <div class="language-selector">
+    <div class="selected-language" (click)="toggleDropdown()">
+      {{ getCurrentLanguageCode() }}
+      <span class="arrow" [class.active]="isDropdownOpen">▼</span>
+    </div>
+    <ul class="language-dropdown" [class.open]="isDropdownOpen">
+      <li *ngFor="let lang of availableLanguages" (click)="selectLanguage(lang.code)">
+        {{ lang.label }}
+      </li>
+    </ul>
+  </div>
+
+
+
+
+</header>
+
+
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer>
+  <p>Lorem Ipsum. All rights reserved.</p>
+</footer>

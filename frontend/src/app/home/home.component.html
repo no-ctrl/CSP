@@ -1,0 +1,90 @@
+<section id="home" class="home-section">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ 'HOME_TITLE' | translate }}</h1>
+      <h2 class="hero-subtitle">{{ 'HOME_SUBTITLE' | translate }}</h2>
+      <p class="hero-description">{{ 'HOME_DESCRIPTION' | translate }}</p>
+      <a routerLink="/offers" class="btn primary-btn">{{ 'SUBSCRIBE_NOW' | translate }}</a>
+
+      <div class="payment-info">
+        <p class="payment-title">{{ 'PAYMENT_TITLE' | translate }}</p>
+        <div class="crypto-logos">
+          <div class="crypto-logo">
+            <img src="/assets/bitcoin-logo.svg" alt="{{ 'CRYPTOCURRENCIES.BITCOIN' | translate }}" class="crypto-icon" height="16" width="16">
+            <span class="crypto-name">{{ 'CRYPTOCURRENCIES.BITCOIN' | translate }}</span>
+          </div>
+          <div class="crypto-logo">
+            <img src="/assets/ethereum-logo.svg" alt="{{ 'CRYPTOCURRENCIES.ETHEREUM' | translate }}" class="crypto-icon" height="16" width="16">
+            <span class="crypto-name">{{ 'CRYPTOCURRENCIES.ETHEREUM' | translate }}</span>
+          </div>
+          <div class="crypto-logo">
+            <img src="/assets/usdt-logo.svg" alt="{{ 'CRYPTOCURRENCIES.USDT' | translate }}" class="crypto-icon" height="16" width="16">
+            <span class="crypto-name">{{ 'CRYPTOCURRENCIES.USDT' | translate }}</span>
+          </div>
+          <div class="crypto-logo">
+            <img src="/assets/litecoin-logo.svg" alt="{{ 'CRYPTOCURRENCIES.LITECOIN' | translate }}" class="crypto-icon" height="16" width="16">
+            <span class="crypto-name">{{ 'CRYPTOCURRENCIES.LITECOIN' | translate }}</span>
+          </div>
+          <div class="crypto-logo">
+            <img src="/assets/bnb-logo.svg" alt="{{ 'CRYPTOCURRENCIES.BNB' | translate }}" class="crypto-icon" height="16" width="16">
+            <span class="crypto-name">{{ 'CRYPTOCURRENCIES.BNB' | translate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+
+        </div>
+        <p class="progress-info">
+         {{ 'PRODUCTS_SOLD' | translate }}!
+        </p>
+      </div>
+    </div>
+</section>
+
+<section id="about-section" class="about-section">
+  <div class="container info-faq-container">
+
+    <div class="info-section">
+      <h2 class="info-title">{{ 'ABOUT_TITLE' | translate }}</h2>
+      <p class="info-text">{{ 'ABOUT_TEXT_1' | translate }}</p>
+
+
+      <h2 class="info-title">{{ 'HOW_TO_USE_TITLE' | translate }}</h2>
+      <ol class="info-text">
+        <li>{{ 'HOW_TO_GET_MEMBERSHIP_STEP_1' | translate }}</li>
+        <li>{{ 'HOW_TO_GET_MEMBERSHIP_STEP_2' | translate }}</li>
+
+        <ul>
+          <li>{{ 'HOW_TO_GET_MEMBERSHIP_NOTE_1' | translate }}</li>
+          <li>{{ 'HOW_TO_GET_MEMBERSHIP_NOTE_2' | translate }}</li>
+        </ul>
+      </ol>
+
+      <h2 class="info-title">{{ 'HOW_IT_WORKS_TITLE' | translate }}</h2>
+      <ol class="info-text">
+        <li>{{ 'HOW_IT_WORKS_STEP_1' | translate }}</li>
+        <li>{{ 'HOW_IT_WORKS_STEP_2' | translate }}</li>
+        <li>{{ 'HOW_IT_WORKS_STEP_3' | translate }}</li>
+        <li>{{ 'HOW_IT_WORKS_STEP_4' | translate }}</li>
+
+        <li>{{ 'HOW_IT_WORKS_TERMS_LINK' | translate }} <a href="terms-and-conditions" target="_blank">{{ 'TERMS_CONDITIONS' | translate }}</a>.</li>
+        <ul>
+          <li>{{ 'HOW_IT_WORKS_NOTE' | translate }}</li>
+        </ul>
+      </ol>
+    </div>
+
+    <section class="faq-section" id="faq-section">
+      <h2 class="faq-title">{{ 'FAQ_TITLE' | translate }}</h2>
+      <div *ngFor="let faq of faqs" class="faq-item">
+        <div class="faq-question" (click)="toggleFaq(faq)">
+          {{ faq.question | translate }}
+        </div>
+        <div class="faq-answer" [ngClass]="{'open': faq.open}">
+          {{ faq.answer | translate }}
+        </div>
+      </div>
+    </section>
+  </div>
+</section>

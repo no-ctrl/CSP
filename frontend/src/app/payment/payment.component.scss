@@ -1,0 +1,1225 @@
+// Base Colors
+$primary-color: #3498db;
+$secondary-color: #f8f9fa;
+$highlight-color: #e74c3c;
+$success-color: #2ecc71;
+$error-color: #e74c3c;
+$text-color: #2c3e50;
+$background-color: #ffffff;
+$shadow-color: rgba(0, 0, 0, 0.1);
+$border-color: #ced4da;
+
+// Font Family
+$font-primary: 'Roboto', sans-serif;
+$font-secondary: 'Poppins', sans-serif;
+
+// Mixins
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin section-container {
+  background: $background-color;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px $shadow-color;
+  padding: 25px;
+  margin-bottom: 30px;
+  animation: fadeIn 0.8s ease-out;
+  position: relative;
+}
+
+// Keyframes
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Main Container
+.payment-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: $background-color;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px $shadow-color;
+  font-family: $font-primary;
+  color: $text-color;
+
+  // Payment Completed Section
+  .verification-success {
+    @include section-container;
+    text-align: center;
+    background: linear-gradient(135deg, $success-color, lighten($success-color, 10%));
+    border: 1px solid $success-color;
+
+    .success-message {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out;
+    }
+
+    .confirmation-code {
+      font-size: 24px;
+      color: #fff;
+      background: rgba($text-color, 0.2);
+      padding: 15px 25px;
+      border-radius: 25px;
+      display: inline-block;
+      margin-top: 10px;
+      border: 2px solid $text-color;
+    }
+  }
+  .payment-section{
+    @include section-container;
+    h3 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: $text-color;
+    }
+  }
+
+  // Email Verification Section
+  .email-linking {
+    @include section-container;
+
+    h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: $text-color;
+    }
+
+    .intro-text {
+      font-size: 20px;
+      margin-bottom: 25px;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .email-form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      label {
+        font-size: 20px;
+        font-weight: 600;
+        color: $text-color;
+      }
+
+      input {
+        padding: 16px;
+        font-size: 18px;
+        border: 2px solid $border-color;
+        border-radius: 8px;
+        @include transition(border-color);
+
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
+          box-shadow: 0 0 0 3px rgba($primary-color, 0.2);
+        }
+      }
+
+      button {
+        padding: 16px;
+        background: $primary-color;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        @include transition(background-color);
+
+        &:hover {
+          background: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    .success-message {
+      font-size: 22px;
+      color: $success-color;
+      text-align: center;
+      margin-top: 25px;
+      font-weight: 600;
+    }
+  }
+
+  .package-selection {
+    @include section-container;
+
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      text-align: center;
+      color: $text-color;
+      margin-bottom: 25px;
+    }
+
+    .intro-text {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .package-options {
+      display: flex;
+      flex-wrap: wrap;  // Allow wrapping to next line if needed
+      gap: 20px;  // Reduced gap to fit more cards without scroll
+      justify-content: center;
+
+      .package-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px $shadow-color;
+        cursor: pointer;
+        flex: 1 1 calc(33.333% - 20px);  // Adjust card size based on container width
+        max-width: calc(33.333% - 20px);  // Ensure cards fit within container
+        transition: box-shadow 0.3s, transform 0.3s, border 0.3s;
+        padding: 20px;  // Slightly reduced padding for a better fit
+        text-align: center;
+        position: relative;
+        box-sizing: border-box;  // Ensure padding and border are included in width
+
+        &.selected {
+          border: 2px solid $primary-color;
+          box-shadow: 0 8px 16px $shadow-color;
+        }
+
+        &:hover {
+          box-shadow: 0 8px 16px $shadow-color;
+          transform: scale(1.05);
+        }
+
+        .package-header {
+          background-color: $primary-color;
+          color: #fff;
+          padding: 14px;  // Adjusted padding for a more compact look
+          border-radius: 10px;
+          margin-bottom: 15px;  // Reduced margin for better spacing
+
+          .package-name {
+            font-size: 22px;  // Slightly reduced font size for a better fit
+            font-weight: 700;
+            margin: 0;
+          }
+
+          .package-price {
+            font-size: 22px;  // Slightly reduced font size for consistency
+            font-weight: 700;
+            margin: 5px 0 0;
+          }
+        }
+
+        .package-description {
+          font-size: 16px;  // Slightly reduced font size for better readability
+          color: $text-color;
+          margin-bottom: 10px;  // Reduced margin for better spacing
+          line-height: 1.5;  // Slightly reduced line-height
+        }
+
+        .package-discount {
+          background-color: $highlight-color;
+          color: #fff;
+          padding: 10px;  // Reduced padding for a more compact look
+          border-radius: 8px;
+          font-weight: 600;  // Slightly reduced font weight for consistency
+        }
+      }
+    }
+
+    // Media Queries for Mobile Responsiveness
+    @media (max-width: 768px) {
+      .package-options {
+        .package-card {
+          flex: 1 1 calc(50% - 20px);  // Two cards per row on medium devices
+          max-width: calc(50% - 20px);  // Ensure cards fit within container
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 24px;  // Smaller title font size for small devices
+      }
+
+      .intro-text {
+        font-size: 18px;  // Smaller intro text for small devices
+      }
+
+      .package-options {
+        .package-card {
+          flex: 1 1 100%;  // One card per row on small devices
+          max-width: 100%;  // Ensure cards fit within container
+        }
+      }
+    }
+  }
+
+  .crypto-selection {
+    @include section-container;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      color: $text-color;
+      margin-bottom: 25px;
+    }
+
+    .intro-text {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .crypto-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+
+      .crypto-option {
+        @include flex-center;
+        flex-direction: column;
+        padding: 20px;
+        background: $secondary-color;
+        border-radius: 12px;
+        width: 160px;
+        cursor: pointer;
+        transition: background 0.3s, border 0.3s;
+        position: relative;
+
+        .crypto-icon {
+          width: 80px;
+          height: 80px;
+          margin-bottom: 15px;
+        }
+
+        .crypto-name {
+          font-size: 18px;
+          color: $text-color;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background: lighten($secondary-color, 5%);
+        }
+
+        &.selected {
+          border: 2px solid $primary-color;
+          background: lighten($secondary-color, 10%);
+        }
+      }
+    }
+  }
+
+  // Payment Instructions Section
+  .payment-details {
+    @include section-container;
+
+    h3 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      text-align: center;
+      color: $text-color;
+    }
+
+    .payment-summary {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+
+    .address-container {
+      .address-item {
+        margin-bottom: 25px;
+        text-align: center;
+
+        .label {
+          font-size: 16px;
+          font-weight: bold;
+          margin-right: 8px;
+        }
+
+        .crypto-address {
+          font-size: 18px;
+          background: #f1f1f1;
+          padding: 16px;
+          border-radius: 10px;
+          display: inline-block;
+          margin-bottom: 15px;
+          word-break: break-word;
+        }
+
+        .copy-button {
+          background: $primary-color;
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          padding: 12px 18px;
+          cursor: pointer;
+          @include transition(background-color);
+
+          &:hover {
+            background: darken($primary-color, 10%);
+          }
+
+          .icon {
+            font-size: 16px;
+          }
+        }
+      }
+
+      .memo-container {
+        margin-top: 20px;
+
+        .memo-item {
+          text-align: center;
+
+          .label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 8px;
+          }
+
+          .crypto-address {
+            font-size: 18px;
+            background: #f1f1f1;
+            padding: 16px;
+            border-radius: 10px;
+            display: inline-block;
+            word-break: break-word;
+          }
+
+          .copy-button {
+            background: $highlight-color;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            cursor: pointer;
+            @include transition(background-color);
+
+            &:hover {
+              background: darken($highlight-color, 10%);
+            }
+
+            .icon {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+
+    .qr-code-wrapper {
+      text-align: center;
+      margin-top: 30px;
+
+      .qr-code-container {
+        margin: 0 auto;
+
+        .qr-code-title {
+          font-size: 22px;
+          font-weight: 700;
+          margin-bottom: 15px;
+          color: $text-color;
+        }
+
+        .qr-code {
+          display: inline-block;
+          margin-bottom: 15px;
+        }
+
+        .qr-code-info {
+          font-size: 16px;
+          color: $text-color;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+
+  // Payment Initiation
+  .payment-process {
+    @include flex-center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+
+    .start-payment-button {
+      padding: 16px 30px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      background: $primary-color;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      @include transition(background-color);
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  // Transaction ID Submission
+
+
+  .payment-verification {
+    @include section-container;
+
+    .verification-status {
+      text-align: center;
+
+      .verification-message {
+        font-size: 22px;
+        margin-bottom: 25px;
+        color: $text-color;
+      }
+
+      //.progress-container {
+      //  display: flex;
+      //  flex-direction: column;
+      //  align-items: center;
+      //
+      //  .progress-bar {
+      //    width: 100%;
+      //    background: #e0e0e0;
+      //    border-radius: 12px;
+      //    height: 24px;
+      //    margin-bottom: 15px;
+      //    position: relative;
+      //
+      //    .progress {
+      //      background: $primary-color;
+      //      height: 100%;
+      //      border-radius: 12px;
+      //      transition: width 0.4s ease;
+      //    }
+      //  }
+      //
+      //  .progress-text {
+      //    font-size: 18px;
+      //    color: $text-color;
+      //  }
+      //}
+    }
+  }
+
+  // Recheck Transaction IDs
+  .recheck-transaction-id {
+    @include section-container;
+
+    .recheck-message {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 25px;
+      color: $text-color;
+    }
+
+    .resubmit-button {
+      padding: 14px 30px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      background: $primary-color;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      @include transition(background-color);
+
+      &:hover {
+        background: darken($primary-color, 10%);
+      }
+    }
+  }
+
+  // Help Section
+  .info {
+    //@include section-container;
+    //background: $secondary-color;
+    text-align: center;
+    padding: 20px;
+
+    a {
+      color: $primary-color;
+      font-size: 18px;
+      font-weight: 600;
+      text-decoration: none;
+      @include transition(color);
+
+      &:hover {
+        color: darken($primary-color, 10%);
+      }
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .payment-container {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  .email-linking, .package-selection, .crypto-selection, .payment-details, .payment-process, .transaction-id-section, .payment-verification, .recheck-transaction-id, .info {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  h2, h3, h4 {
+    font-size: 22px;
+  }
+
+  .package-card {
+    width: 100%;
+    max-width: none;
+  }
+
+  .crypto-option {
+    width: 130px;
+    padding: 12px;
+
+    .crypto-icon {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  .transaction-id-item input {
+    font-size: 16px;
+  }
+
+  .start-payment-button, .submit-transaction-id-button, .resubmit-button {
+    font-size: 18px;
+  }
+}
+
+// Color Variables
+$background-color: #f4f6f8;
+$card-background: #ffffff;
+$border-color: #dcdcdc;
+$primary-color: #1a73e8;
+$hover-primary-color: #155ab2;
+$error-color: #e63946;
+$hover-error-color: #d62828;
+$success-color: #2a9d8f;
+$hover-success-color: #21867a;
+$text-color: #333333;
+$secondary-text-color: #666666;
+$button-text-color: #ffffff;
+$input-placeholder-color: #a0a0a0;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+// Font Variables
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+// General Styling
+.transaction-id-section {
+  background-color: $background-color;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px $shadow-color;
+  max-width: 600px;
+  margin: 40px auto;
+  font-family: $font-family;
+
+  .transaction-title {
+    font-size: 22px;
+    font-weight: $font-weight-bold;
+    color: $text-color;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .transaction-info {
+    font-size: $font-size-small;
+    color: $secondary-text-color;
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .transaction-id-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .transaction-id-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .transaction-id-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border: 1px solid $border-color;
+        border-radius: 8px;
+        padding: 12px 16px;
+        background-color: $card-background;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+        &:hover {
+          border-color: $primary-color;
+          box-shadow: 0 2px 8px $shadow-color;
+        }
+
+        input {
+          flex: 1;
+          padding: 10px;
+          font-size: $font-size-base;
+          border: none;
+          background-color: transparent;
+          color: $text-color;
+
+          &:focus {
+            outline: none;
+            border-bottom: 2px solid $primary-color;
+          }
+
+          &::placeholder {
+            color: $input-placeholder-color;
+          }
+        }
+
+        .remove-button {
+          background: none;
+          border: none;
+          color: $error-color;
+          font-size: 20px;
+          cursor: pointer;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $hover-error-color;
+          }
+        }
+      }
+
+      .actions {
+        display: flex;
+        justify-content: space-between;
+
+        .add-button,
+        .submit-transaction-id-button {
+          padding: 12px 18px;
+          font-size: $font-size-small;
+          border-radius: 8px;
+          cursor: pointer;
+          border: none;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: $button-text-color;
+          transition: background-color 0.3s ease;
+
+          &.add-button {
+            background-color: $primary-color;
+
+            &:hover {
+              background-color: $hover-primary-color;
+            }
+          }
+
+          &.submit-transaction-id-button {
+            background-color: $success-color;
+
+            &:hover {
+              background-color: $hover-success-color;
+            }
+          }
+
+          .icon {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsiveness
+@media (max-width: 768px) {
+  .transaction-id-section {
+    padding: 16px;
+
+    .transaction-title {
+      font-size: 20px;
+    }
+
+    .transaction-id-form {
+      gap: 20px;
+
+      .transaction-id-inputs {
+        gap: 14px;
+
+        .transaction-id-item {
+          flex-direction: column;
+          gap: 10px;
+
+          .remove-button {
+            align-self: flex-end;
+            font-size: 18px;
+          }
+        }
+
+        .actions {
+          flex-direction: column;
+          gap: 12px;
+
+          .add-button,
+          .submit-transaction-id-button {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+.copy-button{
+  margin-left: 10px;
+}
+#email-linking-heading{
+  text-align: center;
+}
+.payment-section {
+  padding: 30px;
+  background: #ffffff;  // Clean white background
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 0 auto;
+
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;  // Dark gray for readability
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .transaction-id-section {
+    .transaction-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #444;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .transaction-info {
+      font-size: 14px;
+      margin-bottom: 20px;
+      color: #666;
+      text-align: center;
+    }
+
+    .transaction-form {
+      .transaction-ids-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .transaction-id-item {
+          display: flex;
+          align-items: center;
+          background: #f7f7f7;  // Light gray for item background
+          padding: 12px;
+          border-radius: 6px;
+          border: 1px solid #ddd;
+          position: relative;
+
+          .transaction-id-input {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            background: #fff;
+            @include transition(all);
+
+            &:focus {
+              border-color: #007bff;  // Primary color for focus
+              outline: none;
+              box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+            }
+          }
+
+          .remove-button {
+            background: transparent;  // No background for cleaner look
+            color: #ff6f6f;  // Light red color for visibility
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @include transition(all);
+
+            &:hover {
+              color: #ff4d4d;  // Darker red on hover
+            }
+
+            .icon {
+              line-height: 0;  // Remove extra space around icon
+            }
+          }
+        }
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .add-button,
+        .submit-button {
+          padding: 12px 20px;
+          font-size: 16px;
+          font-weight: 500;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          @include transition(all);
+
+          &.add-button {
+            background: #e0e0e0;  // Light gray for "Add" button
+            color: #333;
+
+            &:hover {
+              background: #d0d0d0;
+            }
+          }
+
+          &.submit-button {
+            background: #007bff;  // Primary color for "Submit" button
+            color: #fff;
+
+            &:hover {
+              background: darken(#007bff, 10%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.payment-confirmation {
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px 20px;
+  text-align: center;
+  margin: 0 auto;
+
+  &__icon {
+    font-size: 48px;
+    color: #4caf50;
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    color: #d9007b;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  &__message {
+    color: #333;
+    font-size: 16px;
+    margin: 15px 0;
+  }
+
+  &__details {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+    &-item {
+      margin: 10px 0;
+      font-size: 14px;
+
+      strong {
+        color: #580065;
+      }
+    }
+  }
+
+  &__instructions {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    background-color: #d9007b;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+
+    &:hover {
+      background-color: #c0006e;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__title {
+      font-size: 24px;
+    }
+
+    &__icon {
+      font-size: 36px;
+    }
+  }
+}
+.payment-verification {
+  display: flex;
+  justify-content: center;
+  //align-items: center;
+  //min-height: 100vh;
+  background-color: #f9fafc;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+
+  .verification-status {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+
+    .verification-message {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 35px;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .progress-container {
+      .progress-bar-container {
+        background-color: #eaeef1;
+        border-radius: 25px;
+        overflow: hidden;
+        height: 24px;
+        margin-bottom: 25px;
+        position: relative;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        .progress-bar {
+          background: linear-gradient(90deg, #00bfa5, #4caf50);
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: width 0.5s ease;
+          border-radius: 25px;
+          position: relative;
+
+          .progress-label {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%); /* Center the label horizontally */
+            white-space: nowrap; /* Prevent text wrapping */
+            z-index: 1; /* Ensure the label is on top of the progress bar */
+            animation: slideIn 0.5s ease;
+          }
+        }
+      }
+
+      .amount-details {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        padding: 0 10px;
+
+        .amount-text {
+          font-size: 18px;
+          color: #7f8c8d;
+
+          strong {
+            color: #2c3e50;
+            font-weight: 600;
+          }
+        }
+
+        .remaining-amount {
+          color: #e74c3c; // Highlight the remaining amount with a vibrant color
+          font-weight: 700;
+        }
+      }
+
+      .progress-text {
+        font-size: 15px;
+        font-style: italic;
+        color: #27ae60;
+        letter-spacing: 0.5px;
+        animation: fadeInUp 0.5s ease;
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-verification {
+    padding: 15px;
+
+    .verification-status {
+      padding: 25px;
+
+      .verification-message {
+        font-size: 18px;
+      }
+
+      .progress-container {
+        .progress-bar-container {
+          height: 18px;
+
+          .progress-bar {
+            .progress-label {
+              font-size: 12px;
+            }
+          }
+        }
+
+        .amount-details {
+          flex-direction: column;
+          padding: 0;
+
+          .amount-text {
+            margin-bottom: 12px;
+            text-align: left;
+          }
+        }
+
+        .progress-text {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.terms-and-conditions,.help-guide {
+  margin: 20px auto; // Center the section with auto margins
+  padding: 10px 20px; // Reduced padding for a cleaner look
+  //border-top: 1px solid #e0e0e0; // Subtle border to separate from previous content
+  font-size: 13px; // Smaller font size for a more compact appearance
+  color: #555; // Softer text color for a cleaner look
+  //background-color: #f9f9f9; // Light background for emphasis
+  border-radius: 5px; // Slightly rounded corners for a modern look
+  text-align: center; // Center the text
+  //max-width: 400px; // Limit the width for a more contained appearance
+
+  p {
+    margin: 0; // Remove default margin for a cleaner look
+    line-height: 1.5; // Improved line height for better readability
+  }
+
+  .terms-link, .help-link {
+    color: #007bff; // Link color
+    text-decoration: underline; // Underline for links
+    font-weight: bold; // Bold link for emphasis
+
+    &:hover {
+      text-decoration: none; // Remove underline on hover
+      color: #0056b3; // Darker color on hover for better visibility
+      transition: color 0.3s ease; // Smooth transition for hover effect
+    }
+  }
+}

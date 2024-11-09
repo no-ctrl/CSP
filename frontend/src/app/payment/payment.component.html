@@ -1,0 +1,147 @@
+<div class="payment-container">
+  <div *ngIf="paymentCompleted" class="payment-confirmation">
+    <h1 class="payment-confirmation__title">{{ 'PAYMENT_CONFIRMATION_TITLE' | translate }}</h1>
+    <p class="payment-confirmation__message">{{ 'PAYMENT_CONFIRMATION_MESSAGE' | translate }}</p>
+    <div class="payment-confirmation__details">
+      <p class="payment-confirmation__details-item"><strong>{{ 'EMAIL' | translate }}: </strong> {{ userEmail }}</p>
+      <p class="payment-confirmation__details-item"><strong>{{ 'PACKAGE' | translate }}: </strong> {{ selectedPackage }}</p>
+      <p class="payment-confirmation__details-item"><strong>{{ 'ACTIVATION_CODE' | translate }}: </strong> {{ paymentToken }}</p>
+      <p class="payment-confirmation__details-item"><strong>{{ 'PAYMENT_AMOUNT' | translate }}: </strong> {{ totalAmountRequired }} USD</p>
+      <p class="payment-confirmation__details-item"><strong>{{ 'PURCHASE_DATE' | translate }}: </strong> <span>{{ utcDate }}</span></p>
+    </div>
+    <p class="payment-confirmation__instructions">{{ 'PAYMENT_CONFIRMATION_INSTRUCTIONS' | translate }}</p>
+  </div>
+
+  <section *ngIf="!paymentCompleted && !selectedPackage" class="email-linking" aria-labelledby="email-linking-heading">
+    <h2 id="email-linking-heading" *ngIf="!emailSubmitted">{{ 'EMAIL_VERIFICATION_TITLE' | translate }}</h2>
+    <p class="intro-text" *ngIf="!emailSubmitted">{{ 'EMAIL_VERIFICATION_MESSAGE' | translate }}</p>
+
+    <form [formGroup]="emailForm" (ngSubmit)="onEmailSubmit()" *ngIf="!emailSubmitted" class="email-form">
+      <label for="userEmail">{{ 'EMAIL_ADDRESS_LABEL' | translate }}:</label>
+      <input
+              type="email"
+              id="userEmail"
+              formControlName="userEmail"
+              [placeholder]="'EMAIL_PLACEHOLDER' | translate"
+              aria-describedby="email-help"
+      >
+      <div *ngIf="emailForm.get('userEmail')?.invalid && emailForm.get('userEmail')?.touched" class="error-message">
+        <p *ngIf="emailForm.get('userEmail')?.errors?.['required']">{{ 'EMAIL_REQUIRED_ERROR' | translate }}</p>
+        <p *ngIf="emailForm.get('userEmail')?.errors?.['email']">{{ 'EMAIL_INVALID_ERROR' | translate }}</p>
+      </div>
+      <button type="submit"  [disabled]="emailForm.invalid">{{ 'VERIFY_EMAIL' | translate }}</button>
+    </form>
+
+    <div class="success-message" *ngIf="emailSubmitted && !paymentCompleted">
+      <p class="greeting"><strong>{{ userEmail }}</strong> {{ 'EMAIL_VERIFIED_MESSAGE' | translate }}</p>
+      <p>{{ 'READY_TO_PROCEED' | translate }}</p>
+    </div>
+  </section>
+
+  <section class="package-selection" *ngIf="emailSubmitted && !paymentCompleted" aria-labelledby="package-selection-heading">
+    <h2 id="package-selection-heading" class="section-title">{{ 'CHOOSE_PACKAGE_TITLE' | translate }}</h2>
+    <p class="intro-text">{{ 'CHOOSE_PACKAGE_MESSAGE' | translate }}</p>
+    <div class="package-options" role="listbox" >
+      <div
+              *ngFor="let package of packages"
+              class="package-card"
+              [class.selected]="package.name === selectedPackage"
+              (click)="onPackageClick(package.name)"
+              (keydown.enter)="onPackageClick(package.name)"
+              tabindex="0"
+              role="option"
+              [attr.aria-selected]="package.name === selectedPackage"
+      >
+        <div class="package-header">
+          <h3 class="package-name">{{ package.name }}</h3>
+          <p class="package-price">{{ package.price | currency }}</p>
+        </div>
+        <p class="package-description">{{ package.description | translate }}</p>
+        <p class="package-discount" *ngIf="package.discount | translate">{{ package.discount | translate }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="crypto-selection" *ngIf="selectedPackage && emailSubmitted && !paymentCompleted" aria-labelledby="crypto-selection-heading">
+    <h2 id="crypto-selection-heading">{{ 'SELECT_CRYPTO_TITLE' | translate }}</h2>
+    <p class="intro-text">{{ 'SELECT_CRYPTO_MESSAGE' | translate }}</p>
+    <div class="crypto-options" role="listbox" >
+      <div
+              *ngFor="let crypto of cryptoOptions"
+              class="crypto-option"
+              [class.selected]="crypto.name === selectedCrypto"
+              (click)="onCryptoClick(crypto.name)"
+              (keydown.enter)="onCryptoClick(crypto.name)"
+              tabindex="0"
+              role="option"
+              [attr.aria-selected]="crypto.name === selectedCrypto"
+      >
+        <img [src]="crypto.logo" [alt]="crypto.name + ' ' + ('LOGO' | translate)" class="crypto-icon">
+        <span class="crypto-name">{{ crypto.name }}</span>
+      </div>
+    </div>
+    <div class="help-guide">
+      <p>{{ 'HELP_GUIDE_MESSAGE' | translate }}
+        <a href="/help" target="_blank" class="help-link">{{ 'HELP_GUIDE' | translate }}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="payment-details" *ngIf="selectedPackage && selectedCrypto && !paymentCompleted" aria-labelledby="payment-details-heading">
+    <h3 id="payment-details-heading">{{ 'PAYMENT_INSTRUCTIONS_TITLE' | translate }}</h3>
+    <div class="payment-summary">
+      <p class="summary-text">{{ 'SUMMARY_PACKAGE_SELECTED' | translate }} <strong>{{ selectedPackage }}</strong>.</p>
+      <p class="summary-text">{{ 'SUMMARY_PAYMENT_AMOUNT' | translate }} <strong>${{ totalAmountRequired }}</strong>, {{ 'EQUIVALENT' | translate }} <strong>{{ cryptoAmountRequired | number: '1.6-6' }} {{ selectedCrypto }}</strong>.</p>
+      <p class="summary-text">{{ 'SUMMARY_CRYPTO_CONFIRMATION' | translate }} <strong>{{ selectedCrypto }}</strong><span *ngIf="selectedCrypto === 'USDT'"> (TRC20 - TRON Network)</span>.</p>
+    </div>
+
+    <div class="address-container">
+      <div class="address-item">
+        <span class="label">{{ 'ADDRESS' | translate }}:</span>
+        <p class="crypto-address" role="textbox" >{{ cryptoAddress }}</p>
+        <button class="copy-button" (click)="copyToClipboard(cryptoAddress)" >
+          <span class="icon">{{ 'COPY_ADDRESS' | translate }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="qr-code-wrapper">
+      <div class="qr-code-container" *ngIf="cryptoAddress">
+        <h3 class="qr-code-title">{{ 'QR_CODE_TITLE' | translate }}</h3>
+        <div class="qr-code">
+          <qrcode [qrdata]="qrData" [width]="164" [errorCorrectionLevel]="'M'"></qrcode>
+        </div>
+        <p class="qr-code-info">{{ 'QR_CODE_INFO' | translate }}</p>
+      </div>
+    </div>
+
+    <div class="terms-and-conditions">
+      <p>{{ 'TERMS_CONDITIONS_CONFIRMATION' | translate }}
+        <a href="/terms-and-conditions" target="_blank" class="terms-link" >{{ 'TERMS_AND_CONDITIONS' | translate }}</a>.
+      </p>
+    </div>
+  </section>
+
+  <div class="payment-process" *ngIf="!paymentStarted && selectedCrypto && !paymentCompleted">
+    <button class="start-payment-button" (click)="checkPaymentStatus()">{{ 'CHECK_PAYMENT_STATUS' | translate }}</button>
+  </div>
+
+  <div class="payment-verification" *ngIf="paymentStarted && !paymentCompleted">
+    <div class="verification-status">
+      <p class="verification-message">{{ 'PROCESSING_PAYMENT_MESSAGE' | translate }}</p>
+      <div class="progress-container">
+        <div class="progress-bar-container">
+          <div class="progress-bar" [style.width.%]="progress">
+            <span *ngIf="progress > 0" class="progress-label">{{ progress.toFixed(0) }}%</span>
+          </div>
+        </div>
+        <div class="amount-details">
+          <p class="amount-text"><strong>{{ 'TOTAL_AMOUNT' | translate }}:</strong> {{ totalAmountRequired | currency }}</p>
+          <p class="amount-text"><strong>{{ 'PAID_AMOUNT' | translate }}:</strong> {{ amountPaid | currency }}</p>
+          <p class="amount-text remaining-amount"><strong>{{ 'REMAINING_AMOUNT' | translate }}:</strong> {{ remainingAmount | currency }}</p>
+        </div>
+        <p *ngIf="progress > 0" class="progress-text">{{ 'PAID_PROGRESS' | translate }} {{ progress.toFixed(0) }}% {{ 'REMAINING_MESSAGE' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

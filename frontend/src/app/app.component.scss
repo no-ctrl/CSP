@@ -1,0 +1,377 @@
+$primary-color: #b9c4f6;
+$accent-color: rgba(230, 0, 126, 0.61);
+$background-color: #f4f4f4;
+$text-color: #ffffff;
+$secondary-text-color: #333333;
+$border-radius: 4px;
+$transition-speed: 0.3s;
+
+::ng-deep * {
+
+  margin: 0;
+}
+
+// Global Styles
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: $secondary-text-color;
+  line-height: 1.7;
+  background-color: $background-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+
+  &.menu-active {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// Header Styles
+header {
+  width: 100%;
+  background: $primary-color;
+  color: $text-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color $transition-speed ease, box-shadow $transition-speed ease;
+
+
+  $bg-color: white;
+  $text-color: #4a5568;
+  $hover-bg-color: rgba(0, 0, 0, 0.07);
+  $selected-bg-color: #4c51bf;
+  $selected-text-color: white;
+
+
+
+
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    padding: 0.5rem 1rem;
+  }
+
+
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  .logo-img-container {
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow $transition-speed ease, transform $transition-speed ease;
+
+    .logo-img {
+      width: 60%;
+      height: auto;
+      border-radius: 50%;
+      transition: filter $transition-speed ease, transform $transition-speed ease;
+    }
+
+    &:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+
+      .logo-img {
+        filter: brightness(1.2);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    margin-left: 0.75rem;
+    margin-right: 0.50rem;
+    font-weight: 700;
+    color: $text-color;
+    transition: color $transition-speed ease;
+    letter-spacing: 0.5px;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
+
+// Enhanced Modern Hamburger Menu Styles
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around; // Evenly space lines
+  width: 40px; // Optimal width for visibility
+  height: 30px; // Balanced height
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1000; // High enough for visibility
+
+  @media (max-width: 768px) {
+    display: flex; // Show on mobile
+  }
+
+  .hamburger-line {
+    width: 100%;
+    height: 4px; // Thicker for better visibility
+    background-color: #fff; // CSS variable for color
+    border-radius: 5px; // Smooth rounded corners
+    transition: all 0.3s ease; // Smooth transitions for all properties
+  }
+
+  // Transform to 'X' when active
+  &.active {
+    .hamburger-line {
+      &:nth-child(1) {
+        transform: translateY(10px) rotate(45deg); // Move and rotate
+      }
+
+      &:nth-child(2) {
+        opacity: 0; // Fade out the middle line
+        transform: scale(0); // Scale down for effect
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg); // Move and rotate
+      }
+    }
+  }
+}
+
+
+// Navigation Menu Styles
+nav {
+  display: flex;
+  gap: 1rem;
+
+  a {
+    font-family: 'Roboto', sans-serif;
+    color: $text-color;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: $border-radius;
+    transition: background-color $transition-speed ease, color $transition-speed ease, transform $transition-speed ease;
+    text-transform: capitalize;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+
+    &:hover,
+    &.active-link {
+      background-color: $accent-color;
+      color: $text-color;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    &.logout {
+      background-color: rgba(87, 106, 124, 0.37);
+      color: $text-color;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    background-color: $primary-color;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1rem 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity $transition-speed ease, transform $transition-speed ease;
+
+    &.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a {
+      width: 90%;
+      margin: 0.5rem auto;
+      text-align: center;
+      font-size: 0.85rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+}
+
+// Main Content Styles
+main {
+  min-height: calc(100vh - 120px); // Adjust based on header and footer height
+  background-color: $background-color;
+}
+
+// Footer Styles
+footer {
+  width: 100%;
+  background: $primary-color;
+  color: $text-color;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+
+  p {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
+// Adjusting Padding for Sections
+#about-section,
+#faq-section {
+  padding-top: 80px; // Offset for sticky header
+}
+
+// Utility Classes
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+// Responsive Styles for Small Devices
+@media (max-width: 768px) {
+  .logo-text {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+}
+.language-selector {
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+
+  .selected-language {
+    background-color: $primary-color;
+    color: $text-color;
+    padding: 0.6rem 1rem;
+    border-radius: $border-radius;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem; // Smaller font size for mobile
+    transition: background-color $transition-speed ease, box-shadow $transition-speed ease;
+    position: relative;
+
+    .arrow {
+      margin-left: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    &.active .arrow {
+      transform: rotate(180deg);
+    }
+  }
+
+  .language-dropdown {
+    list-style: none;
+    position: absolute;
+    top: calc(100% + 0.9rem);
+    left: auto;
+    right: 0;
+    background-color: lighten($primary-color, 5%);
+    padding: 0;
+    margin: 0;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity $transition-speed ease, transform $transition-speed ease;
+    min-width: 100%; // Expand to full width on mobile
+
+    &.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    li {
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: normal;
+      overflow-wrap: break-word;
+
+      &.full-name {
+        text-transform: none;
+      }
+
+      &:hover {
+        background-color: $accent-color;
+        color: $text-color;
+      }
+    }
+    @media (min-width: 768px) {
+      .selected-language {
+        font-size: 1rem; // Larger font size for desktop
+      }
+
+      .language-dropdown {
+        min-width: auto; // Expand to content width on desktop
+        left: 0;
+        right: auto;
+
+        margin-right: 50px; // Adjust as needed to create the desired space
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .selected-language {
+      font-size: 1rem; // Larger font size for desktop
+    }
+
+    .language-dropdown {
+      min-width: auto; // Expand to content width on desktop
+      left: 0;
+      right: auto;
+    }
+  }
+}
